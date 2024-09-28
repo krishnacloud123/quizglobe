@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Science & Nature Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        .quiz-container {
+            margin: 20px;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 24px;
+        }
+        .question {
+            margin-bottom: 12px;
+        }
+        .question h3 {
+            font-size: 14px;
+        }
+        select {
+            width: 100%;
+            padding: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Science & Nature Quiz</h1>
+
+    <!-- Quiz Questions -->
+    <div id="quiz-container">
+        <!-- Back to Home Button -->
+        <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
+
+        <div class="buttons-container">
+            <button onclick="checkAnswers()">Submit Answers</button>
+            <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
+        </div>
+
+        <div id="result" class="result"></div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        { q: 'What is the process by which plants make their food?', id: 'q1', options: ['Photosynthesis', 'Respiration', 'Digestion'], answer: 'Photosynthesis' },
+        { q: 'Which gas is essential for human respiration?', id: 'q2', options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'], answer: 'Oxygen' },
+        { q: 'What is the primary source of energy for Earth?', id: 'q3', options: ['The Moon', 'The Sun', 'Geothermal Heat'], answer: 'The Sun' },
+        { q: 'Which animal is known as the king of the jungle?', id: 'q4', options: ['Elephant', 'Tiger', 'Lion'], answer: 'Lion' },
+        { q: 'What is the boiling point of water?', id: 'q5', options: ['100°C', '50°C', '0°C'], answer: '100°C' },
+        { q: 'Which planet is known as the Red Planet?', id: 'q6', options: ['Venus', 'Mars', 'Jupiter'], answer: 'Mars' },
+        { q: 'What is the largest mammal on Earth?', id: 'q7', options: ['Elephant', 'Blue Whale', 'Giraffe'], answer: 'Blue Whale' },
+        { q: 'Which part of the plant conducts photosynthesis?', id: 'q8', options: ['Roots', 'Stem', 'Leaves'], answer: 'Leaves' },
+        { q: 'What is the hardest natural substance on Earth?', id: 'q9', options: ['Iron', 'Diamond', 'Gold'], answer: 'Diamond' },
+        { q: 'Which gas do plants absorb from the atmosphere during photosynthesis?', id: 'q10', options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'], answer: 'Carbon Dioxide' }
+    ];
+
+    function displayQuestions() {
+        const container = document.getElementById('quiz-container');
+        questions.forEach((question) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h3>${question.q}</h3>
+                <select id="${question.id}">
+                    <option value="0">--Select--</option>
+                    ${question.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+            `;
+            container.insertBefore(questionDiv, container.querySelector('.buttons-container').nextSibling);
+        });
+    }
+
+    function checkAnswers() {
+        let correct = 0;
+        questions.forEach(question => {
+            const selectedAnswer = document.getElementById(question.id).value;
+            if (selectedAnswer === question.answer) {
+                correct++;
+            }
+        });
+
+        const total = questions.length;
+        const score = (correct / total) * 100;
+        document.getElementById('result').innerHTML = `You got ${correct} out of ${total} correct. Your score is ${score.toFixed(2)}%.`;
+    }
+
+    function resetQuiz() {
+        questions.forEach(question => {
+            document.getElementById(question.id).value = '0';
+        });
+        document.getElementById('result').innerHTML = '';
+    }
+
+    displayQuestions();
+</script>
+
+</body>
+</html>
