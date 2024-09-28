@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Knowledge Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            margin: 0;
+            text-align: center;
+            font-size: 24px;
+        }
+        .quiz-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .question {
+            margin-bottom: 12px;
+        }
+        .question h3 {
+            font-size: 14px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reset-btn {
+            background-color: #f44336;
+        }
+        button.reset-btn:hover {
+            background-color: #e53935;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .back-home-btn {
+            background-color: #2196F3;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button.back-home-btn:hover {
+            background-color: #1976D2;
+        }
+        /* Media query for smaller screens */
+        @media only screen and (max-width: 600px) {
+            .quiz-container {
+                padding: 10px;
+            }
+            .question h3 {
+                font-size: 12px;
+            }
+            button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            select {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .buttons-container {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>General Knowledge Quiz</h1>
+
+<div class="quiz-container" id="quiz-container">
+    <!-- Back to Home Button -->
+    <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
+
+    <!-- Buttons at the top -->
+    <div class="buttons-container">
+        <button onclick="checkAnswers()">Submit Answers</button>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
+    </div>
+
+    <!-- Questions will be dynamically inserted here -->
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    const questions = [
+        { q: 'What is the chemical symbol for water?', id: 'q1', options: ['H₂O', 'O₂', 'H₂'], answer: 'H₂O' },
+        { q: 'Who wrote the novel "1984"?', id: 'q2', options: ['George Orwell', 'Aldous Huxley', 'F. Scott Fitzgerald'], answer: 'George Orwell' },
+        { q: 'What is the tallest mountain in the world?', id: 'q3', options: ['Mount Kilimanjaro', 'Mount Everest', 'K2'], answer: 'Mount Everest' },
+        { q: 'Which planet is known as the Red Planet?', id: 'q4', options: ['Venus', 'Mars', 'Jupiter'], answer: 'Mars' },
+        { q: 'Who is the artist behind the famous painting "The Starry Night"?', id: 'q5', options: ['Pablo Picasso', 'Vincent van Gogh', 'Claude Monet'], answer: 'Vincent van Gogh' },
+        { q: 'In which year did the Titanic sink?', id: 'q6', options: ['1912', '1914', '1916'], answer: '1912' },
+        { q: 'Which country won the FIFA World Cup in 2018?', id: 'q7', options: ['Brazil', 'France', 'Germany'], answer: 'France' },
+        { q: 'What is the currency of Japan?', id: 'q8', options: ['Yen', 'Won', 'Yuan'], answer: 'Yen' },
+        { q: 'Who discovered penicillin?', id: 'q9', options: ['Alexander Fleming', 'Marie Curie', 'Louis Pasteur'], answer: 'Alexander Fleming' },
+        { q: 'Which is the largest ocean on Earth?', id: 'q10', options: ['Atlantic Ocean', 'Indian Ocean', 'Pacific Ocean'], answer: 'Pacific Ocean' }
+    ];
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function displayQuestions() {
+        shuffleArray(questions);  // Shuffle questions
+        const container = document.getElementById('quiz-container');
+        questions.forEach((question) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h3>${question.q}</h3>
+                <select id="${question.id}">
+                    <option value="0">--Select--</option>
+                    ${question.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+            `;
+            container.insertBefore(questionDiv, container.querySelector('.buttons-container').nextSibling);
+        });
+    }
+
+    function checkAnswers() {
+        let correct = 0;
+        questions.forEach(question => {
+            const selectedAnswer = document.getElementById(question.id).value;
+            if (selectedAnswer === question.answer) {
+                correct++;
+            }
+        });
+
+        const total = questions.length;
+        const score = (correct / total) * 100;
+        document.getElementById('result').innerHTML = `You got ${correct} out of ${total} correct. Your score is ${score.toFixed(2)}%.`;
+    }
+
+    function resetQuiz() {
+        questions.forEach(question => {
+            document.getElementById(question.id).value = '0';  // Reset all selects to default value
+        });
+        document.getElementById('result').innerHTML = '';  // Clear result
+    }
+
+    // Display shuffled questions on load
+    displayQuestions();
+</script>
+
+</body>
+</html>
