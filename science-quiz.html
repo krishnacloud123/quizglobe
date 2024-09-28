@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Science & Nature Quiz</title>
+    <title>General Knowledge Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,28 +11,30 @@
             color: #333;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-        }
-        .quiz-container {
-            margin: 20px;
-            max-width: 600px;
-            padding: 15px;
-            background-color: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
         h1 {
             background-color: #4CAF50;
             color: white;
             padding: 10px 0;
+            margin: 0;
             text-align: center;
             font-size: 24px;
+        }
+        .quiz-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
         }
         .question {
             margin-bottom: 12px;
         }
         .question h3 {
             font-size: 14px;
+            text-align: left;
+            margin-bottom: 8px;
         }
         select {
             width: 100%;
@@ -41,6 +43,7 @@
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
+            box-sizing: border-box;
         }
         .buttons-container {
             display: flex;
@@ -57,47 +60,97 @@
             cursor: pointer;
             width: 48%;
         }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reset-btn {
+            background-color: #f44336;
+        }
+        button.reset-btn:hover {
+            background-color: #e53935;
+        }
         .result {
             margin-top: 15px;
             font-size: 16px;
             font-weight: bold;
         }
+        .back-home-btn {
+            background-color: #2196F3;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button.back-home-btn:hover {
+            background-color: #1976D2;
+        }
+        /* Media query for smaller screens */
+        @media only screen and (max-width: 600px) {
+            .quiz-container {
+                padding: 10px;
+            }
+            .question h3 {
+                font-size: 12px;
+            }
+            button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            select {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .buttons-container {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <h1>Science & Nature Quiz</h1>
+<h1>General Knowledge Quiz</h1>
 
-    <!-- Quiz Questions -->
-    <div id="quiz-container">
-        <!-- Back to Home Button -->
-        <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
+<div class="quiz-container" id="quiz-container">
+    <!-- Back to Home Button -->
+    <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
 
-        <div class="buttons-container">
-            <button onclick="checkAnswers()">Submit Answers</button>
-            <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
-        </div>
-
-        <div id="result" class="result"></div>
+    <!-- Buttons at the top -->
+    <div class="buttons-container">
+        <button onclick="checkAnswers()">Submit Answers</button>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
     </div>
+
+    <!-- Questions will be dynamically inserted here -->
+
+    <div id="result" class="result"></div>
 </div>
 
 <script>
     const questions = [
-        { q: 'What is the process by which plants make their food?', id: 'q1', options: ['Photosynthesis', 'Respiration', 'Digestion'], answer: 'Photosynthesis' },
-        { q: 'Which gas is essential for human respiration?', id: 'q2', options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'], answer: 'Oxygen' },
-        { q: 'What is the primary source of energy for Earth?', id: 'q3', options: ['The Moon', 'The Sun', 'Geothermal Heat'], answer: 'The Sun' },
-        { q: 'Which animal is known as the king of the jungle?', id: 'q4', options: ['Elephant', 'Tiger', 'Lion'], answer: 'Lion' },
-        { q: 'What is the boiling point of water?', id: 'q5', options: ['100°C', '50°C', '0°C'], answer: '100°C' },
-        { q: 'Which planet is known as the Red Planet?', id: 'q6', options: ['Venus', 'Mars', 'Jupiter'], answer: 'Mars' },
-        { q: 'What is the largest mammal on Earth?', id: 'q7', options: ['Elephant', 'Blue Whale', 'Giraffe'], answer: 'Blue Whale' },
-        { q: 'Which part of the plant conducts photosynthesis?', id: 'q8', options: ['Roots', 'Stem', 'Leaves'], answer: 'Leaves' },
-        { q: 'What is the hardest natural substance on Earth?', id: 'q9', options: ['Iron', 'Diamond', 'Gold'], answer: 'Diamond' },
-        { q: 'Which gas do plants absorb from the atmosphere during photosynthesis?', id: 'q10', options: ['Oxygen', 'Carbon Dioxide', 'Nitrogen'], answer: 'Carbon Dioxide' }
+        { q: 'What is the chemical symbol for water?', id: 'q1', options: ['H₂O', 'O₂', 'H₂'], answer: 'H₂O' },
+        { q: 'Who wrote the novel "1984"?', id: 'q2', options: ['George Orwell', 'Aldous Huxley', 'F. Scott Fitzgerald'], answer: 'George Orwell' },
+        { q: 'What is the tallest mountain in the world?', id: 'q3', options: ['Mount Kilimanjaro', 'Mount Everest', 'K2'], answer: 'Mount Everest' },
+        { q: 'Which planet is known as the Red Planet?', id: 'q4', options: ['Venus', 'Mars', 'Jupiter'], answer: 'Mars' },
+        { q: 'Who is the artist behind the famous painting "The Starry Night"?', id: 'q5', options: ['Pablo Picasso', 'Vincent van Gogh', 'Claude Monet'], answer: 'Vincent van Gogh' },
+        { q: 'In which year did the Titanic sink?', id: 'q6', options: ['1912', '1914', '1916'], answer: '1912' },
+        { q: 'Which country won the FIFA World Cup in 2018?', id: 'q7', options: ['Brazil', 'France', 'Germany'], answer: 'France' },
+        { q: 'What is the currency of Japan?', id: 'q8', options: ['Yen', 'Won', 'Yuan'], answer: 'Yen' },
+        { q: 'Who discovered penicillin?', id: 'q9', options: ['Alexander Fleming', 'Marie Curie', 'Louis Pasteur'], answer: 'Alexander Fleming' },
+        { q: 'Which is the largest ocean on Earth?', id: 'q10', options: ['Atlantic Ocean', 'Indian Ocean', 'Pacific Ocean'], answer: 'Pacific Ocean' }
     ];
 
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
     function displayQuestions() {
+        shuffleArray(questions);  // Shuffle questions
         const container = document.getElementById('quiz-container');
         questions.forEach((question) => {
             const questionDiv = document.createElement('div');
@@ -129,11 +182,12 @@
 
     function resetQuiz() {
         questions.forEach(question => {
-            document.getElementById(question.id).value = '0';
+            document.getElementById(question.id).value = '0';  // Reset all selects to default value
         });
-        document.getElementById('result').innerHTML = '';
+        document.getElementById('result').innerHTML = '';  // Clear result
     }
 
+    // Display shuffled questions on load
     displayQuestions();
 </script>
 
