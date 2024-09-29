@@ -2,146 +2,139 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olympic Games Quiz - QuizGlobe</title>
+    <title>Olympic Games Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f5;
+            background-color: #f9f9f9;
             color: #333;
-        }
-
-        header {
-            background-color: #00a0c6;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-
-        header h1 {
             margin: 0;
-            font-size: 2em;
-        }
-
-        .container {
-            padding: 20px;
-            max-width: 800px;
-            margin: 20px auto;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            border-radius: 8px;
-        }
-
-        h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #00a0c6;
-        }
-
-        ul {
-            list-style: none;
             padding: 0;
         }
-
-        li {
-            margin: 10px 0;
-        }
-
-        li label {
-            cursor: pointer;
-        }
-
-        input[type="radio"] {
-            margin-right: 10px;
-        }
-
-        button {
-            background-color: #00a0c6;
+        h1 {
+            background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 0;
+            margin: 0;
+            text-align: center;
+            font-size: 24px;
+        }
+        .quiz-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .question {
+            margin-bottom: 12px;
+        }
+        .question h3 {
+            font-size: 14px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            width: 48%;
         }
-
         button:hover {
-            background-color: #007999;
+            background-color: #45a049;
         }
-
-        footer {
-            background-color: #00a0c6;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            margin-top: 20px;
+        .reset-btn {
+            background-color: #f44336;
         }
-
-        footer a {
+        button.reset-btn:hover {
+            background-color: #e53935;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .back-home-btn {
+            background-color: #2196F3;
             color: white;
-            text-decoration: none;
-            margin: 0 15px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button.back-home-btn:hover {
+            background-color: #1976D2;
+        }
+        @media only screen and (max-width: 600px) {
+            .quiz-container {
+                padding: 10px;
+            }
+            .question h3 {
+                font-size: 12px;
+            }
+            button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            select {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .buttons-container {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Olympic Games Quiz</h1>
-    <p>Test your knowledge about the greatest sporting event in the world!</p>
-</header>
+<h1>Olympic Games Quiz</h1>
 
-<div class="container">
-    <h2>Question 1: When were the first modern Olympic Games held?</h2>
-    <ul>
-        <li><label><input type="radio" name="q1"> 1892</label></li>
-        <li><label><input type="radio" name="q1"> 1896</label></li>
-        <li><label><input type="radio" name="q1"> 1900</label></li>
-        <li><label><input type="radio" name="q1"> 1912</label></li>
-    </ul>
+<div class="quiz-container" id="quiz-container">
+    <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
 
-    <h2>Question 2: Which country has won the most Olympic medals?</h2>
-    <ul>
-        <li><label><input type="radio" name="q2"> China</label></li>
-        <li><label><input type="radio" name="q2"> United States</label></li>
-        <li><label><input type="radio" name="q2"> Russia</label></li>
-        <li><label><input type="radio" name="q2"> Germany</label></li>
-    </ul>
+    <div class="buttons-container">
+        <button onclick="checkAnswers()">Submit Answers</button>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
+    </div>
 
-    <h2>Question 3: Which city has hosted the most Summer Olympic Games?</h2>
-    <ul>
-        <li><label><input type="radio" name="q3"> London</label></li>
-        <li><label><input type="radio" name="q3"> Paris</label></li>
-        <li><label><input type="radio" name="q3"> Tokyo</label></li>
-        <li><label><input type="radio" name="q3"> Los Angeles</label></li>
-    </ul>
-
-    <h2>Question 4: What is the Olympic motto?</h2>
-    <ul>
-        <li><label><input type="radio" name="q4"> "Faster, Higher, Stronger"</label></li>
-        <li><label><input type="radio" name="q4"> "Together, We Win"</label></li>
-        <li><label><input type="radio" name="q4"> "Victory for All"</label></li>
-        <li><label><input type="radio" name="q4"> "Strength, Unity, Glory"</label></li>
-    </ul>
-
-    <h2>Question 5: In which year were the first Winter Olympic Games held?</h2>
-    <ul>
-        <li><label><input type="radio" name="q5"> 1924</label></li>
-        <li><label><input type="radio" name="q5"> 1932</label></li>
-        <li><label><input type="radio" name="q5"> 1948</label></li>
-        <li><label><input type="radio" name="q5"> 1956</label></li>
-    </ul>
-
-    <br>
-    <button onclick="alert('Your answers have been submitted!')">Submit Answers</button>
+    <div id="result" class="result"></div>
 </div>
 
-<footer>
-    <p>&copy; 2024 QuizGlobe</p>
-    <a href="index.html">Home</a> | <a href="#">Privacy</a> | <a href="#">Terms</a>
-</footer>
+<script>
+    const questions = [
+        { q: 'Which country has hosted the most Olympic Games?', id: 'q1', options: ['USA', 'UK', 'France'], answer: 'USA' },
+        { q: 'In which year were the first modern Olympics held?', id: 'q2', options: ['1896', '1900', '1912'], answer: '1896' },
+        { q: 'Who is the most decorated Olympian of all time?', id: 'q3', options: ['Michael Phelps', 'Usain Bolt', 'Carl Lewis'], answer: 'Michael Phelps' },
+        { q: 'Which country hosted the 2020 Summer Olympics?', id: 'q4', options: ['Japan', 'Brazil', 'China'], answer: 'Japan' },
+        { q: 'How many sports were contested in the 2016 Rio Olympics?', id: 'q5', options: ['28', '33', '42'], answer: '28' },
+        { q: 'Which city will host the 2028 Summer Olympics?', id: 'q6', options: ['Los Angeles', 'Paris', 'Brisbane'], answer: 'Los Angeles' },
+        { q: 'Which country won the most medals in the 2016 Olympics?', id: 'q7', options: ['USA', 'China', 'Great Britain'], answer: 'USA' },
+        { q: 'Which sport was reintroduced in the 2020 Olympics after being excluded for 12 years?', id: 'q8', options: ['Baseball', 'Golf', 'Rugby'], answer: 'Baseball' },
+        { q: 'Which sport is known as the "Olympic Pentathlon"?', id: 'q9', options: ['Modern Pentathlon', 'Decathlon', 'Triathlon'], answer: 'Modern Pentathlon' },
+        { q: 'In which year did the Winter Olympics first take place?', id: 'q10', options: ['1924', '1936', '1952'], answer: '1924' }
+    ];
 
-</body>
-</html>
+    function
