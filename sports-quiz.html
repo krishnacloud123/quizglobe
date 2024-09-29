@@ -161,14 +161,31 @@
         });
     }
 
-    function checkAnswers() {
-        let correct = 0;
-        questions.forEach(question => {
-            const selectedAnswer = document.getElementById(question.id).value;
-            if (selectedAnswer === question.answer) {
-                correct++;
-            }
-        });
+function checkAnswers() {
+    let correct = 0;
+    let unanswered = 0;
+    
+    questions.forEach(question => {
+        const selectedAnswer = document.getElementById(question.id).value;
+        
+        // Check if the user has selected an answer
+        if (selectedAnswer === '0') {
+            unanswered++;
+        } else if (selectedAnswer === question.answer) {
+            correct++;
+        }
+    });
+
+    const total = questions.length;
+    const score = (correct / total) * 100;
+
+    if (unanswered > 0) {
+        document.getElementById('result').innerHTML = `You have ${unanswered} unanswered question(s). Your score is ${score.toFixed(2)}%.`;
+    } else {
+        document.getElementById('result').innerHTML = `You got ${correct} out of ${total} correct. Your score is ${score.toFixed(2)}%.`;
+    }
+}
+
 
         const total = questions.length;
         const score = (correct / total) * 100;
