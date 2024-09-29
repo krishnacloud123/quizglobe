@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            margin: 0;
+            text-align: center;
+            font-size: 24px;
+        }
+        .quiz-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .question {
+            margin-bottom: 12px;
+        }
+        .question h3 {
+            font-size: 14px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reset-btn {
+            background-color: #f44336;
+        }
+        button.reset-btn:hover {
+            background-color: #e53935;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .back-home-btn {
+            background-color: #2196F3;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button.back-home-btn:hover {
+            background-color: #1976D2;
+        }
+        /* Media query for smaller screens */
+        @media only screen and (max-width: 600px) {
+            .quiz-container {
+                padding: 10px;
+            }
+            .question h3 {
+                font-size: 12px;
+            }
+            button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            select {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .buttons-container {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>History Quiz</h1>
+
+<div class="quiz-container" id="quiz-container">
+    <!-- Back to Home Button -->
+    <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
+
+    <!-- Buttons at the top -->
+    <div class="buttons-container">
+        <button onclick="checkAnswers()">Submit Answers</button>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
+    </div>
+
+    <!-- Questions will be dynamically inserted here -->
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    const questions = [
+        { q: 'Who was the first President of the United States?', id: 'q1', options: ['George Washington', 'Thomas Jefferson', 'Abraham Lincoln'], answer: 'George Washington' },
+        { q: 'In what year did World War I begin?', id: 'q2', options: ['1914', '1916', '1918'], answer: '1914' },
+        { q: 'Which country built the Great Wall?', id: 'q3', options: ['Japan', 'China', 'India'], answer: 'China' },
+        { q: 'Who was known as the Iron Lady?', id: 'q4', options: ['Margaret Thatcher', 'Angela Merkel', 'Indira Gandhi'], answer: 'Margaret Thatcher' },
+        { q: 'What ancient civilization built the pyramids?', id: 'q5', options: ['The Greeks', 'The Romans', 'The Egyptians'], answer: 'The Egyptians' },
+        { q: 'Who was the British Prime Minister during World War II?', id: 'q6', options: ['Winston Churchill', 'Neville Chamberlain', 'Clement Attlee'], answer: 'Winston Churchill' },
+        { q: 'In what year did the Titanic sink?', id: 'q7', options: ['1912', '1914', '1916'], answer: '1912' },
+        { q: 'Which empire was ruled by Julius Caesar?', id: 'q8', options: ['The Greek Empire', 'The Roman Empire', 'The Ottoman Empire'], answer: 'The Roman Empire' },
+        { q: 'What country did the United States purchase Alaska from?', id: 'q9', options: ['Russia', 'Canada', 'The United Kingdom'], answer: 'Russia' },
+        { q: 'Which explorer is credited with discovering America in 1492?', id: 'q10', options: ['Christopher Columbus', 'Vasco da Gama', 'Ferdinand Magellan'], answer: 'Christopher Columbus' }
+    ];
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function displayQuestions() {
+        shuffleArray(questions);  // Shuffle questions
+        const container = document.getElementById('quiz-container');
+        questions.forEach((question) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h3>${question.q}</h3>
+                <select id="${question.id}">
+                    <option value="0">--Select--</option>
+                    ${question.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+            `;
+            container.insertBefore(questionDiv, container.querySelector('.buttons-container').nextSibling);
+        });
+    }
+
+    function checkAnswers() {
+        let correct = 0;
+        questions.forEach(question => {
+            const selectedAnswer = document.getElementById(question.id).value;
+            if (selectedAnswer === question.answer) {
+                correct++;
+            }
+        });
+
+        const total = questions.length;
+        const score = (correct / total) * 100;
+        document.getElementById('result').innerHTML = `You got ${correct} out of ${total} correct. Your score is ${score.toFixed(2)}%.`;
+    }
+
+    function resetQuiz() {
+        questions.forEach(question => {
+            document.getElementById(question.id).value = '0';  // Reset all selects to default value
+        });
+        document.getElementById('result').innerHTML = '';  // Clear result
+    }
+
+    // Display shuffled questions on load
+    displayQuestions();
+</script>
+
+</body>
+</html>
