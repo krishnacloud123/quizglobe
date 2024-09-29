@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizGlobe: Explore Quizzes by Topic</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #00a0c6;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .categories {
+            width: 80%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .category-column {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .category-column h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #00a0c6;
+            text-align: center;
+        }
+
+        .category-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .category-column ul li {
+            margin: 10px 0;
+        }
+
+        .category-column ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            display: block;
+            text-align: center;
+        }
+
+        .category-column ul li a:hover {
+            color: #00a0c6;
+        }
+
+        footer {
+            background-color: #00a0c6;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Welcome to QuizGlobe</h1>
+        <p>Your hub for quizzes on every topic!</p>
+    </header>
+
+    <main>
+        <div class="categories">
+            <div class="category-column">
+                <h3>General Knowledge</h3>
+                <ul>
+                    <li><a href="general-knowledge-quiz.html">General Knowledge Quiz</a></li>
+                    <li><a href="capitals-quiz.html">Capitals Quiz</a></li>
+                </ul>
+            </div>
+            <div class="category-column">
+                <h3>Science & Nature</h3>
+                <ul>
+                    <li><a href="science-quiz.html">Science Quiz</a></li>
+                    <li><a href="geography-quiz.html">Geography Quiz</a></li>
+                </ul>
+            </div>
+            <div class="category-column">
+                <h3>History</h3>
+                <ul>
+                    <li><a href="history-quiz.html">History Quiz</a></li>
+                </ul>
+            </div>
+            <div class="category-column">
+                <h3>Movies & TV</h3>
+                <ul>
+                    <li><a href="movie-trivia-quiz.html">Movie Trivia Quiz</a></li>
+                </ul>
+            </div>
+            <div class="category-column">
+                <h3>Sports</h3>
+                <ul>
+                    <li><a href="sports-quiz.html">Sports Quiz</a></li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 QuizGlobe</p>
+        <a href="#">About</a> | <a href="#">Privacy</a> | <a href="#">Terms</a>
+    </footer>
+
+</body>
+</html>
