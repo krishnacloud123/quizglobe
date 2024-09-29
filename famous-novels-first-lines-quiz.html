@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famous Novels, First Lines Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .quiz-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .answer-options {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .answer-options button {
+            background-color: #fff;
+            border: 2px solid #b0d0ff;
+            border-radius: 8px;
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            flex-grow: 1;
+            transition: 0.3s ease;
+        }
+
+        .answer-options button:hover {
+            background-color: #e0f3ff;
+        }
+
+        .correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+
+        .incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .navigation-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .navigation-buttons button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navigation-buttons button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .progress span {
+            font-size: 18px;
+        }
+
+        .score-box {
+            display: inline-block;
+            background-color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .correct-answer {
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h1>Famous Novels, First Lines Quiz</h1>
+    <div class="question" id="question"></div>
+
+    <div class="answer-options" id="answer-options">
+        <button onclick="selectAnswer(0)">Option 1</button>
+        <button onclick="selectAnswer(1)">Option 2</button>
+        <button onclick="selectAnswer(2)">Option 3</button>
+        <button onclick="selectAnswer(3)">Option 4</button>
+    </div>
+
+    <div id="correct-answer" class="correct-answer"></div>
+
+    <div class="navigation-buttons">
+        <button id="previous-button" onclick="previousQuestion()" disabled>Previous</button>
+        <button id="next-button" onclick="nextQuestion()" disabled>Next</button>
+    </div>
+
+    <div class="progress">
+        <span id="current-question">1 of 5</span>
+        <span>Score: <span class="score-box" id="score">0</span></span>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            question: "“All children, except one, grow up.”",
+            options: ["Peter Pan", "Alice's Adventures in Wonderland", "The Call of the Wild", "The Adventures of Tom Sawyer"],
+            correct: 0
+        },
+        {
+            question: "“It was the best of times, it was the worst of times...”",
+            options: ["War and Peace", "Pride and Prejudice", "A Tale of Two Cities", "Moby Dick"],
+            correct: 2
+        },
+        {
+            question: "“Call me Ishmael.”",
+            options: ["Moby Dick", "The Odyssey", "The Great Gatsby", "The Scarlet Letter"],
+            correct: 0
+        },
+        {
+            question: "“It was a bright cold day in April, and the clocks were striking thirteen.”",
+            options: ["1984", "Brave New World", "The Catcher in the Rye", "Fahrenheit 451"],
+            correct: 0
+        },
+        {
+            question: "“In a hole in the ground there lived a hobbit.”",
+            options: ["The Lord of the Rings", "The Hobbit", "The Chronicles of Narnia", "Harry Potter"],
+            correct: 1
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    const totalQuestions = questions.length;
+    let userAnswers = new Array(totalQuestions).fill(null);
+
+    const questionElement = document.getElementById('question');
+    const answerOptionsElement = document.getElementById('answer-options');
+    const correctAnswerElement = document.getElementById('correct-answer');
+    const currentQuestionText = document.getElementById('current-question');
+    const scoreText = document.getElementById('score');
+    const previousButton = document.getElementById('previous-button');
+    const nextButton = document.getElementById('next-button');
+
+    function loadQuestion(index) {
+        const question = questions[index];
+        questionElement.innerText = question.question;
+        const buttons = answerOptionsElement.querySelectorAll('button');
+        buttons.forEach((button, i) => {
+            button.innerText = question.options[i];
+            button.classList.remove('correct', 'incorrect');
+            button.disabled = false;
+        });
+
+        correctAnswerElement.innerText = '';  // Reset the correct answer display
+
+        // If the user already answered, highlight their choice
+        if (userAnswers[index] !== null) {
+            highlightCorrectAndSelected(userAnswers[index]);
+        }
+
+        currentQuestionText.innerText = `${index + 1} of ${totalQuestions}`;
+        previousButton.disabled = index === 0;
+        nextButton.disabled = userAnswers[index] === null;
+        nextButton.innerText = index === totalQuestions - 1 ? "Submit" : "Next";
+    }
+
+    function selectAnswer(optionIndex) {
+        userAnswers[currentQuestionIndex] = optionIndex;
+        const correctAnswer = questions[currentQuestionIndex].correct;
+
+        if (optionIndex === correctAnswer) {
+            score++;
+        }
+
+        highlightCorrectAndSelected(optionIndex);
+        nextButton.disabled = false;
+
+        scoreText.innerText = score;
+    }
+
+    function highlightCorrectAndSelected(optionIndex) {
+        const correctAnswer = questions[currentQuestionIndex].correct;
+        const buttons = answerOptionsElement.querySelectorAll('button');
+        buttons.forEach((button, i) => {
+            button.disabled = true;
+            if (i === correctAnswer) {
+                button.classList.add('correct');
+            } else if (i === optionIndex) {
+                button.classList.add('incorrect');
+            }
+        });
+
+        // Display the correct answer below the options
+        correctAnswerElement.innerText = `Correct Answer: ${questions[currentQuestionIndex].options[correctAnswer]}`;
+    }
+
+    function nextQuestion() {
+        if (currentQuestionIndex < totalQuestions - 1) {
+            currentQuestionIndex++;
+            loadQuestion(currentQuestionIndex);
+        } else {
+            alert(`Quiz Finished! Your final score is ${score} out of ${totalQuestions}.`);
+            window.location.reload();  // Reload the page for now, can replace with a results page
+        }
+    }
+
+    function previousQuestion() {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion(currentQuestionIndex);
+        }
+    }
+
+    loadQuestion(currentQuestionIndex);  // Load the first question
+</script>
+
+</body>
+</html>
