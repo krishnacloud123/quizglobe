@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olympic Games Quiz - QuizGlobe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #00a0c6;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #00a0c6;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        li label {
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        button {
+            background-color: #00a0c6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #007999;
+        }
+
+        footer {
+            background-color: #00a0c6;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Olympic Games Quiz</h1>
+    <p>Test your knowledge about the greatest sporting event in the world!</p>
+</header>
+
+<div class="container">
+    <h2>Question 1: When were the first modern Olympic Games held?</h2>
+    <ul>
+        <li><label><input type="radio" name="q1"> 1892</label></li>
+        <li><label><input type="radio" name="q1"> 1896</label></li>
+        <li><label><input type="radio" name="q1"> 1900</label></li>
+        <li><label><input type="radio" name="q1"> 1912</label></li>
+    </ul>
+
+    <h2>Question 2: Which country has won the most Olympic medals?</h2>
+    <ul>
+        <li><label><input type="radio" name="q2"> China</label></li>
+        <li><label><input type="radio" name="q2"> United States</label></li>
+        <li><label><input type="radio" name="q2"> Russia</label></li>
+        <li><label><input type="radio" name="q2"> Germany</label></li>
+    </ul>
+
+    <h2>Question 3: Which city has hosted the most Summer Olympic Games?</h2>
+    <ul>
+        <li><label><input type="radio" name="q3"> London</label></li>
+        <li><label><input type="radio" name="q3"> Paris</label></li>
+        <li><label><input type="radio" name="q3"> Tokyo</label></li>
+        <li><label><input type="radio" name="q3"> Los Angeles</label></li>
+    </ul>
+
+    <h2>Question 4: What is the Olympic motto?</h2>
+    <ul>
+        <li><label><input type="radio" name="q4"> "Faster, Higher, Stronger"</label></li>
+        <li><label><input type="radio" name="q4"> "Together, We Win"</label></li>
+        <li><label><input type="radio" name="q4"> "Victory for All"</label></li>
+        <li><label><input type="radio" name="q4"> "Strength, Unity, Glory"</label></li>
+    </ul>
+
+    <h2>Question 5: In which year were the first Winter Olympic Games held?</h2>
+    <ul>
+        <li><label><input type="radio" name="q5"> 1924</label></li>
+        <li><label><input type="radio" name="q5"> 1932</label></li>
+        <li><label><input type="radio" name="q5"> 1948</label></li>
+        <li><label><input type="radio" name="q5"> 1956</label></li>
+    </ul>
+
+    <br>
+    <button onclick="alert('Your answers have been submitted!')">Submit Answers</button>
+</div>
+
+<footer>
+    <p>&copy; 2024 QuizGlobe</p>
+    <a href="index.html">Home</a> | <a href="#">Privacy</a> | <a href="#">Terms</a>
+</footer>
+
+</body>
+</html>
