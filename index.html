@@ -8,10 +8,10 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
         }
         header {
             background-color: #008080;
@@ -20,36 +20,48 @@
             text-align: center;
         }
         main {
-            margin: 20px;
+            margin: 20px auto;
+            max-width: 1200px;
         }
         h1 {
             text-align: center;
+            margin-bottom: 20px;
         }
-        .quiz-container {
+        .categories {
             display: flex;
-            flex-wrap: wrap;
             justify-content: space-around;
+            flex-wrap: wrap;
         }
-        .quiz-item {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .category-column {
+            width: 250px;
             margin: 10px;
-            padding: 20px;
-            text-align: center;
-            width: 300px;
         }
-        .quiz-item a {
-            text-decoration: none;
+        .category-column h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
             color: #008080;
-            font-weight: bold;
+        }
+        .category-column ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .category-column ul li {
+            margin: 5px 0;
+        }
+        .category-column ul li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .category-column ul li a:hover {
+            color: #008080;
         }
         footer {
             text-align: center;
-            padding: 10px;
+            padding: 20px;
             background-color: #008080;
             color: white;
-            position: absolute;
+            position: relative;
             bottom: 0;
             width: 100%;
         }
@@ -64,47 +76,38 @@
 
     <main>
         <h2>Explore Quizzes by Genre</h2>
-        <div class="quiz-container">
-            <div class="quiz-item">
+        <div class="categories">
+            <div class="category-column">
                 <h3>General Knowledge</h3>
-                <p>Test your knowledge across a variety of topics.</p>
-                <a href="general-knowledge-quiz.html">Start Quiz</a>
+                <ul>
+                    <li><a href="general-knowledge-quiz.html">General Knowledge Quiz</a></li>
+                    <li><a href="capitals.html">Capitals Quiz</a></li>
+                </ul>
             </div>
-
-            <div class="quiz-item">
+            <div class="category-column">
                 <h3>Science & Nature</h3>
-                <p>Explore the wonders of the natural world.</p>
-                <a href="science-quiz.html">Start Quiz</a>
+                <ul>
+                    <li><a href="science-quiz.html">Science Quiz</a></li>
+                    <li><a href="geography-quiz.html">Geography Quiz</a></li>
+                </ul>
             </div>
-
-            <div class="quiz-item">
+            <div class="category-column">
                 <h3>History</h3>
-                <p>How much do you know about world history?</p>
-                <a href="history-quiz.html">Start Quiz</a>
+                <ul>
+                    <li><a href="history-quiz.html">History Quiz</a></li>
+                </ul>
             </div>
-
-            <div class="quiz-item">
+            <div class="category-column">
                 <h3>Movies & TV</h3>
-                <p>Are you a cinema or TV series expert?</p>
-                <a href="cinequiz-movie-trivia.html">Start Quiz</a>
+                <ul>
+                    <li><a href="cinequiz-movie-trivia.html">Movie Trivia Quiz</a></li>
+                </ul>
             </div>
-
-            <div class="quiz-item">
-                <h3>Geography</h3>
-                <p>Can you pinpoint every country on the map?</p>
-                <a href="geography-quiz.html">Start Quiz</a>
-            </div>
-
-            <div class="quiz-item">
+            <div class="category-column">
                 <h3>Sports</h3>
-                <p>For all the sports lovers out there!</p>
-                <a href="sports-quiz.html">Start Quiz</a>
-            </div>
-
-            <div class="quiz-item">
-                <h3>Capitals Quiz</h3>
-                <p>How well do you know the capitals of the world?</p>
-                <a href="capitals.html">Start Quiz</a>
+                <ul>
+                    <li><a href="sports-quiz.html">Sports Quiz</a></li>
+                </ul>
             </div>
         </div>
     </main>

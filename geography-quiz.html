@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            margin: 0;
+            text-align: center;
+            font-size: 24px;
+        }
+        .quiz-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .question {
+            margin-bottom: 12px;
+        }
+        .question h3 {
+            font-size: 14px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 6px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reset-btn {
+            background-color: #f44336;
+        }
+        button.reset-btn:hover {
+            background-color: #e53935;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .back-home-btn {
+            background-color: #2196F3;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button.back-home-btn:hover {
+            background-color: #1976D2;
+        }
+        @media only screen and (max-width: 600px) {
+            .quiz-container {
+                padding: 10px;
+            }
+            .question h3 {
+                font-size: 12px;
+            }
+            button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            select {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .buttons-container {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Geography Quiz</h1>
+
+<div class="quiz-container" id="quiz-container">
+    <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
+
+    <div class="buttons-container">
+        <button onclick="checkAnswers()">Submit Answers</button>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
+    </div>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    const questions = [
+        { q: 'Which country is known as the Land of the Rising Sun?', id: 'q1', options: ['Japan', 'China', 'Thailand'], answer: 'Japan' },
+        { q: 'What is the smallest country in the world by land area?', id: 'q2', options: ['Vatican City', 'Monaco', 'Liechtenstein'], answer: 'Vatican City' },
+        { q: 'Which country has the longest coastline in the world?', id: 'q3', options: ['Canada', 'Australia', 'Russia'], answer: 'Canada' },
+        { q: 'What is the capital of Australia?', id: 'q4', options: ['Sydney', 'Melbourne', 'Canberra'], answer: 'Canberra' },
+        { q: 'Which country is both in Europe and Asia?', id: 'q5', options: ['Turkey', 'Egypt', 'Greece'], answer: 'Turkey' },
+        { q: 'What is the largest desert in the world?', id: 'q6', options: ['Sahara Desert', 'Antarctic Desert', 'Gobi Desert'], answer: 'Antarctic Desert' },
+        { q: 'Which river is the longest in the world?', id: 'q7', options: ['Nile', 'Amazon', 'Yangtze'], answer: 'Nile' },
+        { q: 'Which country has the most islands?', id: 'q8', options: ['Sweden', 'Indonesia', 'Philippines'], answer: 'Sweden' },
+        { q: 'What is the highest mountain in Africa?', id: 'q9', options: ['Kilimanjaro', 'Mount Kenya', 'Atlas Mountains'], answer: 'Kilimanjaro' },
+        { q: 'Which continent has the most countries?', id: 'q10', options: ['Africa', 'Asia', 'Europe'], answer: 'Africa' }
+    ];
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function displayQuestions() {
+        shuffleArray(questions);
+        const container = document.getElementById('quiz-container');
+        questions.forEach((question) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h3>${question.q}</h3>
+                <select id="${question.id}">
+                    <option value="0">--Select--</option>
+                    ${question.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+            `;
+            container.insertBefore(questionDiv, container.querySelector('.buttons-container').nextSibling);
+        });
+    }
+
+    function checkAnswers() {
+        let correct = 0;
+        questions.forEach(question => {
+            const selectedAnswer = document.getElementById(question.id).value;
+            if (selectedAnswer === question.answer) {
+                correct++;
+            }
+        });
+
+        const total = questions.length;
+        const score = (correct / total) * 100;
+        document.getElementById('result').innerHTML = `You got ${correct} out of ${total} correct. Your score is ${score.toFixed(2)}%.`;
+    }
+
+    function resetQuiz() {
+        questions.forEach(question => {
+            document.getElementById(question.id).value = '0';
+        });
+        document.getElementById('result').innerHTML = '';
+    }
+
+    displayQuestions();
+</script>
+
+</body>
+</html>
