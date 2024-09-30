@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Concepts Quiz</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16720106225"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-16720106225');
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            margin: 0;
+            text-align: center;
+            font-size: 24px;
+        }
+        .quiz-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .score-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reset-btn {
+            background-color: #f44336;
+        }
+        button.reset-btn:hover {
+            background-color: #e53935;
+        }
+        .question {
+            margin-bottom: 12px;
+        }
+        .question h3 {
+            font-size: 16px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .back-home-btn {
+            background-color: #2196F3;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button.back-home-btn:hover {
+            background-color: #1976D2;
+        }
+        @media only screen and (max-width: 600px) {
+            .quiz-container {
+                padding: 10px;
+            }
+            .question h3 {
+                font-size: 14px;
+            }
+            button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            select {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .buttons-container {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Programming Concepts Quiz</h1>
+
+<div class="quiz-container" id="quiz-container">
+
+    <div class="buttons-container">
+        <button onclick="checkAnswers()">Submit Answers</button>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
+    </div>
+
+    <div class="score-container">
+        <div id="score">Score: 0</div>
+        <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+
+    <div id="quiz-questions"></div>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    const questions = [
+        { q: 'Which programming language is known as the "mother" of modern programming languages?', id: 'q1', options: ['C', 'Java', 'Python', 'JavaScript'], answer: 'C' },
+        { q: 'What does "OOP" stand for in programming?', id: 'q2', options: ['Object Over Process', 'Oriented Object Programming', 'Object-Oriented Programming', 'Output Oriented Process'], answer: 'Object-Oriented Programming' },
+        { q: 'Which of the following is not a primitive data type in JavaScript?', id: 'q3', options: ['String', 'Boolean', 'Object', 'Number'], answer: 'Object' },
+        { q: 'What is the time complexity of searching an element in a balanced binary search tree?', id: 'q4', options: ['O(n)', 'O(log n)', 'O(n^2)', 'O(1)'], answer: 'O(log n)' },
+        { q: 'Which programming paradigm focuses on using functions to build programs?', id: 'q5', options: ['Functional Programming', 'Procedural Programming', 'Declarative Programming', 'OOP'], answer: 'Functional Programming' },
+        { q: 'In Python, what keyword is used to define a function?', id: 'q6', options: ['function', 'def', 'lambda', 'fun'], answer: 'def' },
+        { q: 'What does SQL stand for?', id: 'q7', options: ['Structured Query Language', 'Sequential Query Language', 'Simple Query Language', 'Server Query Language'], answer: 'Structured Query Language' },
+        { q: 'Which data structure follows the First In First Out (FIFO) principle?', id: 'q8', options: ['Stack', 'Queue', 'Heap', 'Tree'], answer: 'Queue' },
+        { q: 'Which language is primarily used for developing iOS apps?', id: 'q9', options: ['Swift', 'Kotlin', 'Objective-C', 'Java'], answer: 'Swift' },
+        { q: 'Which version control system is commonly used to manage and track changes in code?', id: 'q10', options: ['Git', 'Subversion', 'Mercurial', 'CVS'], answer: 'Git' }
+    ];
+
+    let score = 0;
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function displayQuestions() {
+        shuffleArray(questions);
+        const container = document.getElementById('quiz-questions');
+        container.innerHTML = ''; // Clear the container
+        questions.forEach((question) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h3>${question.q}</h3>
+                <select id="${question.id}">
+                    <option value="0">--Select--</option>
+                    ${question.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+                <div class="correct-answer" id="correct-${question.id}" style="color: red; display: none;">Correct Answer: ${question.answer}</div>
+            `;
+            container.appendChild(questionDiv);
+        });
+    }
+
+    function checkAnswers() {
+        let correct = 0;
+        questions.forEach(question => {
+            const selectedAnswer = document.getElementById(question.id).value;
+            const correctAnswerElement = document.getElementById(`correct-${question.id}`);
+            
+            if (selectedAnswer === question.answer) {
+                correct++;
+            } else {
+                correctAnswerElement.style.display = 'block'; // Show the correct answer if incorrect
+            }
+        });
+
+        score = correct;
+        document.getElementById('score').innerHTML = `Score: ${score}`;
+        document.getElementById('result').innerHTML = `You got ${correct} out of ${questions.length} correct.`;
+    }
+
+    function resetQuiz() {
+        displayQuestions(); // Reload questions
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('score').innerHTML = 'Score: 0';
+        score = 0;
+    }
+
+    displayQuestions();
+</script>
+
+</body>
+</html>
