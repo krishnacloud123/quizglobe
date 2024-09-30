@@ -5,6 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuizGlobe: Explore Quizzes by Topic</title>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-M8ZKPV3Q');</script>
+    <!-- End Google Tag Manager -->
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -25,18 +34,11 @@
             margin: 0;
         }
 
-        img {
-            display: block;
-            margin: 20px auto;
-            width: 100%;
-            max-width: 600px;
-            border-radius: 10px;
-        }
-
         main {
             padding: 20px;
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         .categories {
@@ -51,13 +53,13 @@
             border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
+            text-align: center;
         }
 
         .category-column h3 {
             font-size: 18px;
             margin-bottom: 10px;
             color: #00a0c6;
-            text-align: center;
         }
 
         .category-column ul {
@@ -74,11 +76,17 @@
             color: #333;
             font-size: 14px;
             display: block;
-            text-align: center;
         }
 
         .category-column ul li a:hover {
             color: #00a0c6;
+        }
+
+        .category-column img {
+            width: 150px;  /* Adjust the size to be smaller */
+            height: auto;
+            margin: 0 auto 10px;
+            border-radius: 8px;
         }
 
         footer {
@@ -98,16 +106,23 @@
 </head>
 <body>
 
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M8ZKPV3Q"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <header>
         <h1>Welcome to QuizGlobe</h1>
         <p>Your hub for quizzes on every topic!</p>
     </header>
 
-    <!-- GIF Section -->
-    <img src="White, Black and Green Minimalist Daily Question Game Quiz Challenge Mobile Video.gif" alt="QuizGlobe GIF">
-
     <main>
         <div class="categories">
+            <div class="category-column">
+                <h3>Featured Quiz</h3>
+                <!-- Reduced size image -->
+                <img src="your-gif-file.gif" alt="QuizGlobe GIF">
+            </div>
             <div class="category-column">
                 <h3>General Knowledge</h3>
                 <ul>
