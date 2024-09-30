@@ -34,43 +34,6 @@
             margin: 0;
         }
 
-        .carousel-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .carousel-images {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carousel-images img {
-            width: 100%;
-            max-width: 800px;
-            border-radius: 8px;
-        }
-
-        .carousel-buttons {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .carousel-buttons button {
-            background-color: rgba(0, 0, 0, 0.5);
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 10px;
-        }
-
         main {
             padding: 20px;
             display: flex;
@@ -146,24 +109,8 @@
         <p>Your hub for quizzes on every topic!</p>
     </header>
 
-    <!-- Carousel -->
-    <div class="carousel-container">
-        <div class="carousel-images" id="carousel">
-            <img src="quiz-globe.com_1.gif" alt="QuizGlobe Carousel Image 1">
-            <!-- Add more images here if needed -->
-        </div>
-        <div class="carousel-buttons">
-            <button id="prevBtn">&#10094;</button>
-            <button id="nextBtn">&#10095;</button>
-        </div>
-    </div>
-
     <main>
         <div class="categories">
-            <div class="category-column">
-                <h3>Featured Quiz</h3>
-                <img src="your-gif-file.gif" alt="QuizGlobe GIF">
-            </div>
             <div class="category-column">
                 <h3>General Knowledge</h3>
                 <ul>
@@ -221,6 +168,15 @@
                     <li><a href="famous-novels-first-lines-quiz.html">Famous Novels, First Lines Quiz</a></li>
                 </ul>
             </div>
+
+            <!-- New AI Quiz Section -->
+            <div class="category-column">
+                <h3>AI & Machine Learning</h3>
+                <ul>
+                    <li><a href="ai-quiz.html">AI Quiz</a></li>
+                    <li><a href="machine-learning-quiz.html">Machine Learning Quiz</a></li>
+                </ul>
+            </div>
         </div>
     </main>
 
@@ -229,24 +185,5 @@
         <a href="#">About</a> | <a href="#">Privacy</a> | <a href="#">Terms</a>
     </footer>
 
-    <script>
-        const carousel = document.getElementById('carousel');
-        const images = carousel.children;
-        let index = 0;
-
-        const showImage = (index) => {
-            carousel.style.transform = `translateX(-${index * 100}%)`;
-        };
-
-        document.getElementById('prevBtn').addEventListener('click', () => {
-            index = (index > 0) ? index - 1 : images.length - 1;
-            showImage(index);
-        });
-
-        document.getElementById('nextBtn').addEventListener('click', () => {
-            index = (index < images.length - 1) ? index + 1 : 0;
-            showImage(index);
-        });
-    </script>
 </body>
 </html>
