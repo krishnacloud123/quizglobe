@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pop Music Quiz</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16720106225"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-16720106225');
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            margin: 0;
+            text-align: center;
+            font-size: 24px;
+        }
+        .quiz-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .score-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reset-btn {
+            background-color: #f44336;
+        }
+        button.reset-btn:hover {
+            background-color: #e53935;
+        }
+        .question {
+            margin-bottom: 12px;
+        }
+        .question h3 {
+            font-size: 16px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .back-home-btn {
+            background-color: #2196F3;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button.back-home-btn:hover {
+            background-color: #1976D2;
+        }
+        @media only screen and (max-width: 600px) {
+            .quiz-container {
+                padding: 10px;
+            }
+            .question h3 {
+                font-size: 14px;
+            }
+            button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            select {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .buttons-container {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Pop Music Quiz</h1>
+
+<div class="quiz-container" id="quiz-container">
+
+    <div class="buttons-container">
+        <button onclick="checkAnswers()">Submit Answers</button>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
+    </div>
+
+    <div class="score-container">
+        <div id="score">Score: 0</div>
+        <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+
+    <div id="quiz-questions"></div>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    const questions = [
+        { q: 'Which pop star is known as the "Queen of Pop"?', id: 'q1', options: ['Beyoncé', 'Madonna', 'Britney Spears', 'Lady Gaga'], answer: 'Madonna' },
+        { q: 'Who sang the famous hit "Shape of You"?', id: 'q2', options: ['Ed Sheeran', 'Justin Bieber', 'Shawn Mendes', 'Bruno Mars'], answer: 'Ed Sheeran' },
+        { q: 'Which pop group is known for the song "Wannabe"?', id: 'q3', options: ['Destiny\'s Child', 'Backstreet Boys', 'Spice Girls', 'NSYNC'], answer: 'Spice Girls' },
+        { q: 'What is the title of Billie Eilish’s debut album?', id: 'q4', options: ['When We All Fall Asleep, Where Do We Go?', 'Happier Than Ever', 'Don\'t Smile at Me', 'Ocean Eyes'], answer: 'When We All Fall Asleep, Where Do We Go?' },
+        { q: 'Which artist holds the record for the most Grammy Awards?', id: 'q5', options: ['Beyoncé', 'Taylor Swift', 'Adele', 'Michael Jackson'], answer: 'Beyoncé' },
+        { q: 'Who performed the hit song "Uptown Funk"?', id: 'q6', options: ['Mark Ronson', 'Bruno Mars', 'Justin Timberlake', 'The Weeknd'], answer: 'Mark Ronson' },
+        { q: 'Which singer has a famous album titled "1989"?', id: 'q7', options: ['Taylor Swift', 'Ariana Grande', 'Dua Lipa', 'Selena Gomez'], answer: 'Taylor Swift' },
+        { q: 'Who became a global sensation with the hit song "Baby One More Time"?', id: 'q8', options: ['Christina Aguilera', 'Shakira', 'Britney Spears', 'Rihanna'], answer: 'Britney Spears' },
+        { q: 'Which pop icon released the album "Thriller" in 1982?', id: 'q9', options: ['Michael Jackson', 'Prince', 'Whitney Houston', 'George Michael'], answer: 'Michael Jackson' },
+        { q: 'Who is known for the hit song "Blinding Lights"?', id: 'q10', options: ['The Weeknd', 'Post Malone', 'Drake', 'Harry Styles'], answer:
