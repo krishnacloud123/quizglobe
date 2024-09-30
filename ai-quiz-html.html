@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artificial Intelligence Quiz</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_TRACKING_ID');
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .quiz-container {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .buttons-container {
+            margin-top: 20px;
+        }
+        .score-container {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .result {
+            margin-top: 20px;
+            font-style: italic;
+        }
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Artificial Intelligence Quiz</h1>
+
+    <div id="quiz-container" class="quiz-container">
+        <div class="buttons-container">
+            <button onclick="submitAnswers()">Submit Answers</button>
+            <button onclick="resetAnswers()">Reset Answers</button>
+        </div>
+
+        <div class="score-container">
+            <div id="score">Score: 0</div>
+            <button onclick="goToHome()">Back to Home</button>
+        </div>
+
+        <div id="quiz-questions">
+            <h3>1. What does AI stand for?</h3>
+            <input type="radio" name="q1" value="a"> a) Automated Intelligence<br>
+            <input type="radio" name="q1" value="b"> b) Artificial Intelligence<br>
+            <input type="radio" name="q1" value="c"> c) Advanced Integration<br>
+            <input type="radio" name="q1" value="d"> d) Algorithmic Implementation<br>
+            <div id="feedback1" class="feedback"></div>
+
+            <h3>2. Which of these is NOT a common type of AI?</h3>
+            <input type="radio" name="q2" value="a"> a) Machine Learning<br>
+            <input type="radio" name="q2" value="b"> b) Deep Learning<br>
+            <input type="radio" name="q2" value="c"> c) Natural Language Processing<br>
+            <input type="radio" name="q2" value="d"> d) Quantum Intelligence<br>
+            <div id="feedback2" class="feedback"></div>
+
+            <h3>3. What is the name of the AI chatbot developed by OpenAI?</h3>
+            <input type="radio" name="q3" value="a"> a) Alexa<br>
+            <input type="radio" name="q3" value="b"> b) Siri<br>
+            <input type="radio" name="q3" value="c"> c) ChatGPT<br>
+            <input type="radio" name="q3" value="d"> d) Watson<br>
+            <div id="feedback3" class="feedback"></div>
+
+            <h3>4. Which game did Google's AI, AlphaGo, famously beat a human champion at?</h3>
+            <input type="radio" name="q4" value="a"> a) Chess<br>
+            <input type="radio" name="q4" value="b"> b) Go<br>
+            <input type="radio" name="q4" value="c"> c) Poker<br>
+            <input type="radio" name="q4" value="d"> d) Scrabble<br>
+            <div id="feedback4" class="feedback"></div>
+
+            <h3>5. What is the term for AI systems that can perform a wide range of tasks, similar to human intelligence?</h3>
+            <input type="radio" name="q5" value="a"> a) Narrow AI<br>
+            <input type="radio" name="q5" value="b"> b) General AI<br>
+            <input type="radio" name="q5" value="c"> c) Super AI<br>
+            <input type="radio" name="q5" value="d"> d) Multi-task AI<br>
+            <div id="feedback5" class="feedback"></div>
+        </div>
+
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        const answers = [
+            { value: 'b', text: 'Artificial Intelligence' },
+            { value: 'd', text: 'Quantum Intelligence' },
+            { value: 'c', text: 'ChatGPT' },
+            { value: 'b', text: 'Go' },
+            { value: 'b', text: 'General AI' }
+        ];
+
+        function submitAnswers() {
+            let score = 0;
+            
+            for (let i = 1; i <= 5; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                const feedbackElement = document.getElementById(`feedback${i}`);
+                
+                if (selected) {
+                    if (selected.value === answers[i-1].value) {
+                        score++;
+                        feedbackElement.textContent = 'Correct!';
+                        feedbackElement.className = 'feedback correct';
+                    } else {
+                        feedbackElement.textContent = `Incorrect. The correct answer is: ${answers[i-1].text}`;
+                        feedbackElement.className = 'feedback incorrect';
+                    }
+                } else {
+                    feedbackElement.textContent = 'No answer selected.';
+                    feedbackElement.className = 'feedback';
+                }
+            }
+            
+            document.getElementById('score').textContent = `Score: ${score} out of 5`;
+            document.getElementById('result').textContent = `You got ${score} out of 5 questions correct!`;
+        }
+
+        function resetAnswers() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => radio.checked = false);
+            document.getElementById('score').textContent = 'Score: 0';
+            document.getElementById('result').textContent = '';
+            const feedbackElements = document.querySelectorAll('.feedback');
+            feedbackElements.forEach(element => element.textContent = '');
+        }
+
+        function goToHome() {
+            alert('This would navigate to the home page in a real application.');
+        }
+    </script>
+</body>
+</html>
