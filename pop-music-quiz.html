@@ -156,4 +156,64 @@
         { q: 'Which singer has a famous album titled "1989"?', id: 'q7', options: ['Taylor Swift', 'Ariana Grande', 'Dua Lipa', 'Selena Gomez'], answer: 'Taylor Swift' },
         { q: 'Who became a global sensation with the hit song "Baby One More Time"?', id: 'q8', options: ['Christina Aguilera', 'Shakira', 'Britney Spears', 'Rihanna'], answer: 'Britney Spears' },
         { q: 'Which pop icon released the album "Thriller" in 1982?', id: 'q9', options: ['Michael Jackson', 'Prince', 'Whitney Houston', 'George Michael'], answer: 'Michael Jackson' },
-        { q: 'Who is known for the hit song "Blinding Lights"?', id: 'q10', options: ['The Weeknd', 'Post Malone', 'Drake', 'Harry Styles'], answer:
+        { q: 'Who is known for the hit song "Blinding Lights"?', id: 'q10', options: ['The Weeknd', 'Post Malone', 'Drake', 'Harry Styles'], answer: 'The Weeknd' }
+    ];
+
+    let score = 0;
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function displayQuestions() {
+        shuffleArray(questions);
+        const container = document.getElementById('quiz-questions');
+        container.innerHTML = ''; // Clear the container
+        questions.forEach((question) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h3>${question.q}</h3>
+                <select id="${question.id}">
+                    <option value="0">--Select--</option>
+                    ${question.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+                <div class="correct-answer" id="correct-${question.id}" style="color: red; display: none;">Correct Answer: ${question.answer}</div>
+            `;
+            container.appendChild(questionDiv);
+        });
+    }
+
+    function checkAnswers() {
+        let correct = 0;
+        questions.forEach(question => {
+            const selectedAnswer = document.getElementById(question.id).value;
+            const correctAnswerElement = document.getElementById(`correct-${question.id}`);
+            
+            if (selectedAnswer === question.answer) {
+                correct++;
+            } else {
+                correctAnswerElement.style.display = 'block'; // Show the correct answer if incorrect
+            }
+        });
+
+        score = correct;
+        document.getElementById('score').innerHTML = `Score: ${score}`;
+        document.getElementById('result').innerHTML = `You got ${correct} out of ${questions.length} correct.`;
+    }
+
+    function resetQuiz() {
+        displayQuestions(); // Reload questions
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('score').innerHTML = 'Score: 0';
+        score = 0;
+    }
+
+    displayQuestions();
+</script>
+
+</body>
+</html>
