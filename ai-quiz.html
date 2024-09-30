@@ -4,150 +4,200 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Artificial Intelligence Quiz</title>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_TRACKING_ID"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'YOUR_TRACKING_ID');
-    </script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            margin: 0;
+            text-align: center;
+            font-size: 24px;
         }
         .quiz-container {
-            background-color: #f0f0f0;
-            padding: 20px;
-            border-radius: 10px;
-        }
-        .buttons-container {
-            margin-top: 20px;
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
         }
         .score-container {
-            margin-top: 20px;
-            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reset-btn {
+            background-color: #f44336;
+        }
+        button.reset-btn:hover {
+            background-color: #e53935;
+        }
+        .question {
+            margin-bottom: 12px;
+        }
+        .question h3 {
+            font-size: 16px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
         .result {
-            margin-top: 20px;
-            font-style: italic;
-        }
-        .feedback {
-            margin-top: 10px;
+            margin-top: 15px;
+            font-size: 16px;
             font-weight: bold;
         }
-        .correct {
-            color: green;
+        .back-home-btn {
+            background-color: #2196F3;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
         }
-        .incorrect {
-            color: red;
+        button.back-home-btn:hover {
+            background-color: #1976D2;
+        }
+        @media only screen and (max-width: 600px) {
+            .quiz-container {
+                padding: 10px;
+            }
+            .question h3 {
+                font-size: 14px;
+            }
+            button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            select {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .buttons-container {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Artificial Intelligence Quiz</h1>
 
-    <div id="quiz-container" class="quiz-container">
-        <div class="buttons-container">
-            <button onclick="submitAnswers()">Submit Answers</button>
-            <button onclick="resetAnswers()">Reset Answers</button>
-        </div>
+<h1>Artificial Intelligence Quiz</h1>
 
-        <div class="score-container">
-            <div id="score">Score: 0</div>
-            <button onclick="goToHome()">Back to Home</button>
-        </div>
+<div class="quiz-container" id="quiz-container">
 
-        <div id="quiz-questions">
-            <h3>1. What does AI stand for?</h3>
-            <input type="radio" name="q1" value="a"> a) Automated Intelligence<br>
-            <input type="radio" name="q1" value="b"> b) Artificial Intelligence<br>
-            <input type="radio" name="q1" value="c"> c) Advanced Integration<br>
-            <input type="radio" name="q1" value="d"> d) Algorithmic Implementation<br>
-            <div id="feedback1" class="feedback"></div>
-
-            <h3>2. Which of these is NOT a common type of AI?</h3>
-            <input type="radio" name="q2" value="a"> a) Machine Learning<br>
-            <input type="radio" name="q2" value="b"> b) Deep Learning<br>
-            <input type="radio" name="q2" value="c"> c) Natural Language Processing<br>
-            <input type="radio" name="q2" value="d"> d) Quantum Intelligence<br>
-            <div id="feedback2" class="feedback"></div>
-
-            <h3>3. What is the name of the AI chatbot developed by OpenAI?</h3>
-            <input type="radio" name="q3" value="a"> a) Alexa<br>
-            <input type="radio" name="q3" value="b"> b) Siri<br>
-            <input type="radio" name="q3" value="c"> c) ChatGPT<br>
-            <input type="radio" name="q3" value="d"> d) Watson<br>
-            <div id="feedback3" class="feedback"></div>
-
-            <h3>4. Which game did Google's AI, AlphaGo, famously beat a human champion at?</h3>
-            <input type="radio" name="q4" value="a"> a) Chess<br>
-            <input type="radio" name="q4" value="b"> b) Go<br>
-            <input type="radio" name="q4" value="c"> c) Poker<br>
-            <input type="radio" name="q4" value="d"> d) Scrabble<br>
-            <div id="feedback4" class="feedback"></div>
-
-            <h3>5. What is the term for AI systems that can perform a wide range of tasks, similar to human intelligence?</h3>
-            <input type="radio" name="q5" value="a"> a) Narrow AI<br>
-            <input type="radio" name="q5" value="b"> b) General AI<br>
-            <input type="radio" name="q5" value="c"> c) Super AI<br>
-            <input type="radio" name="q5" value="d"> d) Multi-task AI<br>
-            <div id="feedback5" class="feedback"></div>
-        </div>
-
-        <div id="result" class="result"></div>
+    <div class="buttons-container">
+        <button onclick="checkAnswers()">Submit Answers</button>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
     </div>
 
-    <script>
-        const answers = [
-            { value: 'b', text: 'Artificial Intelligence' },
-            { value: 'd', text: 'Quantum Intelligence' },
-            { value: 'c', text: 'ChatGPT' },
-            { value: 'b', text: 'Go' },
-            { value: 'b', text: 'General AI' }
-        ];
+    <div class="score-container">
+        <div id="score">Score: 0</div>
+        <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
 
-        function submitAnswers() {
-            let score = 0;
+    <div id="quiz-questions"></div>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    const questions = [
+        { q: 'What does AI stand for?', id: 'q1', options: ['Automated Intelligence', 'Artificial Intelligence', 'Advanced Integration'], answer: 'Artificial Intelligence' },
+        { q: 'Which of these is NOT a common type of AI?', id: 'q2', options: ['Machine Learning', 'Deep Learning', 'Quantum Intelligence'], answer: 'Quantum Intelligence' },
+        { q: 'What is the name of the AI chatbot developed by OpenAI?', id: 'q3', options: ['Alexa', 'ChatGPT', 'Siri'], answer: 'ChatGPT' },
+        { q: 'Which game did Google’s AI, AlphaGo, beat a human champion at?', id: 'q4', options: ['Chess', 'Go', 'Poker'], answer: 'Go' },
+        { q: 'What is the term for AI systems that can perform a wide range of tasks, similar to human intelligence?', id: 'q5', options: ['Narrow AI', 'General AI', 'Super AI'], answer: 'General AI' }
+    ];
+
+    let score = 0;
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function displayQuestions() {
+        shuffleArray(questions);
+        const container = document.getElementById('quiz-questions');
+        container.innerHTML = ''; // Clear the container
+        questions.forEach((question) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h3>${question.q}</h3>
+                <select id="${question.id}">
+                    <option value="0">--Select--</option>
+                    ${question.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+                <div class="correct-answer" id="correct-${question.id}" style="color: red; display: none;">Correct Answer: ${question.answer}</div>
+            `;
+            container.appendChild(questionDiv);
+        });
+    }
+
+    function checkAnswers() {
+        let correct = 0;
+        questions.forEach(question => {
+            const selectedAnswer = document.getElementById(question.id).value;
+            const correctAnswerElement = document.getElementById(`correct-${question.id}`);
             
-            for (let i = 1; i <= 5; i++) {
-                const selected = document.querySelector(`input[name="q${i}"]:checked`);
-                const feedbackElement = document.getElementById(`feedback${i}`);
-                
-                if (selected) {
-                    if (selected.value === answers[i-1].value) {
-                        score++;
-                        feedbackElement.textContent = 'Correct!';
-                        feedbackElement.className = 'feedback correct';
-                    } else {
-                        feedbackElement.textContent = `Incorrect. The correct answer is: ${answers[i-1].text}`;
-                        feedbackElement.className = 'feedback incorrect';
-                    }
-                } else {
-                    feedbackElement.textContent = 'No answer selected.';
-                    feedbackElement.className = 'feedback';
-                }
+            if (selectedAnswer === question.answer) {
+                correct++;
+            } else {
+                correctAnswerElement.style.display = 'block'; // Show the correct answer if incorrect
             }
-            
-            document.getElementById('score').textContent = `Score: ${score} out of 5`;
-            document.getElementById('result').textContent = `You got ${score} out of 5 questions correct!`;
-        }
+        });
 
-        function resetAnswers() {
-            const radios = document.querySelectorAll('input[type="radio"]');
-            radios.forEach(radio => radio.checked = false);
-            document.getElementById('score').textContent = 'Score: 0';
-            document.getElementById('result').textContent = '';
-            const feedbackElements = document.querySelectorAll('.feedback');
-            feedbackElements.forEach(element => element.textContent = '');
-        }
+        score = correct;
+        document.getElementById('score').innerHTML = `Score: ${score}`;
+        document.getElementById('result').innerHTML = `You got ${correct} out of ${questions.length} correct.`;
+    }
 
-        function goToHome() {
-            alert('This would navigate to the home page in a real application.');
-        }
-    </script>
+    function resetQuiz() {
+        displayQuestions(); // Reload questions
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('score').innerHTML = 'Score: 0';
+        score = 0;
+    }
+
+    displayQuestions();
+</script>
+
 </body>
 </html>
