@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Innovations Quiz</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16720106225"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-16720106225');
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            margin: 0;
+            text-align: center;
+            font-size: 24px;
+        }
+        .quiz-container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 15px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .score-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 48%;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .reset-btn {
+            background-color: #f44336;
+        }
+        button.reset-btn:hover {
+            background-color: #e53935;
+        }
+        .question {
+            margin-bottom: 12px;
+        }
+        .question h3 {
+            font-size: 16px;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .back-home-btn {
+            background-color: #2196F3;
+            color: white;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        button.back-home-btn:hover {
+            background-color: #1976D2;
+        }
+        @media only screen and (max-width: 600px) {
+            .quiz-container {
+                padding: 10px;
+            }
+            .question h3 {
+                font-size: 14px;
+            }
+            button {
+                font-size: 12px;
+                padding: 8px;
+            }
+            select {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .buttons-container {
+                flex-direction: column;
+            }
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Tech Innovations Quiz</h1>
+
+<div class="quiz-container" id="quiz-container">
+
+    <div class="buttons-container">
+        <button onclick="checkAnswers()">Submit Answers</button>
+        <button class="reset-btn" onclick="resetQuiz()">Reset Answers</button>
+    </div>
+
+    <div class="score-container">
+        <div id="score">Score: 0</div>
+        <button class="back-home-btn" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+
+    <div id="quiz-questions"></div>
+
+    <div id="result" class="result"></div>
+</div>
+
+<script>
+    const questions = [
+        { q: 'What groundbreaking technology is often referred to as the foundation of cryptocurrencies like Bitcoin?', id: 'q1', options: ['Blockchain', 'Cloud Computing', 'Quantum Computing', 'Augmented Reality'], answer: 'Blockchain' },
+        { q: 'Which company first introduced the concept of "cloud computing" in 2006?', id: 'q2', options: ['Microsoft', 'Amazon Web Services (AWS)', 'Google', 'IBM'], answer: 'Amazon Web Services (AWS)' },
+        { q: 'What does 5G technology primarily promise over 4G in terms of improvements?', id: 'q3', options: ['Lower energy consumption', 'Higher speeds and reduced latency', 'Greater security', 'Increased data storage'], answer: 'Higher speeds and reduced latency' },
+        { q: 'Which of the following is an example of augmented reality technology?', id: 'q4', options: ['Virtual desktop', 'Snapchat filters', 'Video conferencing', 'Cloud storage'], answer: 'Snapchat filters' },
+        { q: 'Which company developed the first commercially successful electric car?', id: 'q5', options: ['Tesla', 'Nissan', 'Chevrolet', 'Ford'], answer: 'Tesla' },
+        { q: 'Quantum computing is considered a major leap forward because it allows computers to process data using what units?', id: 'q6', options: ['Bytes', 'Quantum bits (qubits)', 'Classical bits', 'Logical units'], answer: 'Quantum bits (qubits)' },
+        { q: 'What is the name of the virtual assistant developed by Amazon?', id: 'q7', options: ['Siri', 'Alexa', 'Google Assistant', 'Cortana'], answer: 'Alexa' },
+        { q: 'Which innovation is expected to revolutionize industries by enabling machines to learn from data and improve performance over time?', id: 'q8', options: ['Artificial Intelligence (AI)', 'Augmented Reality', 'Internet of Things (IoT)', 'Blockchain'], answer: 'Artificial Intelligence (AI)' },
+        { q: 'The term "Internet of Things" (IoT) refers to what?', id: 'q9', options: ['A new type of social media platform', 'Network of physical objects connected via the internet', 'A technology that allows computers to think like humans', 'A new cloud storage system'], answer: 'Network of physical objects connected via the internet' },
+        { q: 'Which technology is widely used for managing and analyzing big data in real-time?', id: 'q10', options: ['Hadoop', 'Blockchain', 'Cloud Computing', 'Artificial Intelligence'], answer: 'Hadoop' }
+    ];
+
+    let score = 0;
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function displayQuestions() {
+        shuffleArray(questions);
+        const container = document.getElementById('quiz-questions');
+        container.innerHTML = ''; // Clear the container
+        questions.forEach((question) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h3>${question.q}</h3>
+                <select id="${question.id}">
+                    <option value="0">--Select--</option>
+                    ${question.options.map(option => `<option value="${option}">${option}</option>`).join('')}
+                </select>
+                <div class="correct-answer" id="correct-${question.id}" style="color: red; display: none;">Correct Answer: ${question.answer}</div>
+            `;
+            container.appendChild(questionDiv);
+        });
+    }
+
+    function checkAnswers() {
+        let correct = 0;
+        questions.forEach(question => {
+            const selectedAnswer = document.getElementById(question.id).value;
+            const correctAnswerElement = document.getElementById(`correct-${question.id}`);
+            
+            if (selectedAnswer === question.answer) {
+                correct++;
+            } else {
+                correctAnswerElement.style.display = 'block'; // Show the correct answer if incorrect
+            }
+        });
+
+        score = correct;
+        document.getElementById('score').innerHTML = `Score: ${score}`;
+        document.getElementById('result').innerHTML = `You got ${correct} out of ${questions.length} correct.`;
+    }
+
+    function resetQuiz() {
+        displayQuestions(); // Reload questions
+        document.getElementById('result').innerHTML = '';
+        document.getElementById('score').innerHTML = 'Score: 0';
+        score = 0;
+    }
+
+    displayQuestions();
+</script>
+
+</body>
+</html>
